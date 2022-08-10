@@ -1,6 +1,14 @@
 # normalize-exports
 
+![npm](https://img.shields.io/npm/v/normalize-exports)
+
 Normalizes the `"exports"` field of `package.json`.
+
+## Install
+
+```sh
+$ npm install normalize-exports
+```
 
 ## Usage
 

@@ -24,7 +24,6 @@
     "build": "rimraf dist && tsc --project tsconfig.types.json",
     "format": "prettier --write --cache .",
     "prepublishOnly": "npm run build && npm run test",
-    "postinstall": "simple-git-hooks",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage"
   },
