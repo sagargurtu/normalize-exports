@@ -1,0 +1,72 @@
+{
+  "name": "normalize-exports",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Normalizes the exports field of package.json",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sagargurtu/normalize-exports.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rimraf dist && tsc --project tsconfig.types.json",
+    "format": "prettier --write --cache .",
+    "prepublishOnly": "npm run build && npm run test",
+    "postinstall": "simple-git-hooks",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "author": {
+    "name": "Sagar Gurtu",
+    "email": "gurtusagar@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "exports",
+    "package exports",
+    "package.json",
+    "esm",
+    "esmodules",
+    "modules"
+  ],
+  "bugs": {
+    "url": "https://github.com/sagargurtu/normalize-exports/issues"
+  },
+  "homepage": "https://github.com/sagargurtu/normalize-exports#readme",
+  "devDependencies": {
+    "@types/mock-fs": "^4.13.1",
+    "@types/node": "^18.6.4",
+    "@types/picomatch": "^2.3.0",
+    "c8": "^7.12.0",
+    "lint-staged": "^13.0.3",
+    "mock-fs": "^5.1.4",
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
+    "simple-git-hooks": "^2.8.0",
+    "typescript": "^4.7.4",
+    "vitest": "^0.21.0"
+  },
+  "dependencies": {
+    "picomatch": "^2.3.1"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*": [
+      "prettier --write --cache --ignore-unknown"
+    ]
+  }
+}
