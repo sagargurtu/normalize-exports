@@ -1,6 +1,6 @@
 # normalize-exports
 
-![npm](https://img.shields.io/npm/v/normalize-exports)
+<a href="https://npmjs.com/package/normalize-exports"><img src="https://img.shields.io/npm/v/normalize-exports" alt="npm package"></a>
 
 Normalizes the `"exports"` field of `package.json`.
 
