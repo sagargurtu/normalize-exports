@@ -46,11 +46,11 @@ normalizeExports(exportsField);
 /* =>
 {
   '.': './dist/esm/index.js',
-  './feature': './dist/feature.js'
+  './feature': './dist/cjs/feature.js'
 }
 */
 
-normalizeExports(exportsField, { conditions: ['require', 'browser'] });
+normalizeExports(exportsField, { conditions: ['import', 'require', 'browser'] });
 /* =>
 {
   '.': './dist/esm/index.js',
@@ -59,7 +59,7 @@ normalizeExports(exportsField, { conditions: ['require', 'browser'] });
 }
 */
 
-normalizeExports(exportsField, { conditions: ['worker'] });
+normalizeExports(exportsField, { conditions: ['import', 'node', 'worker', 'default'] });
 /* =>
 {
   '.': './dist/esm/index.js',
@@ -99,8 +99,10 @@ The `"exports"` field of `package.json`.
 Type: `string[]` \
 Required: `false`
 
-Additional condition strings that should be added to list of supported conditions. Following conditions are supported by
-default: `['node', 'import', 'default']`.
+Export conditions that should be matched. Following conditions are supported by default:
+`['node-addons', 'node', 'import', 'require', 'default']` as per
+https://nodejs.org/api/packages.html#conditional-exports. Providing a non-empty array will override the default
+conditions.
 
 The order specified here does not matter. Conditions are always matched based on `"exports"` map's key order.
 

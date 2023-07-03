@@ -28,8 +28,9 @@ export type Exports = ExportsEntry | SubpathExports;
 
 /**
  * Default supported conditions.
+ * @see https://nodejs.org/api/packages.html#conditional-exports
  */
-const defaultConditions = ['node', 'import', 'default'];
+const defaultConditions = ['node-addons', 'node', 'import', 'require', 'default'];
 
 /**
  * Checks if the `"exports"` field is well-formed.
@@ -160,15 +161,20 @@ const getFlattenedEntries = (
 };
 
 /**
+ * @returns `true` if `arr` is non-empty string array, `false` otherwise.
+ */
+const isNonEmptyArray = (arr?: string[]): arr is string[] => Array.isArray(arr) && arr.length > 0;
+
+/**
  * Normalization options.
  */
 export interface NormalizeExportsOptions {
   /**
-   * Additional conditions that should be supported.
+   * Export conditions that should be matched.
    *
    * By default, the following conditions are supported:
    * ```
-   * ['node', 'import', 'default']
+   * ['node-addons', 'node', 'import', 'require', 'default']
    * ```
    *
    * The order specified here does not matter. Conditions are always matched based on `"exports"` map's key order.
@@ -212,9 +218,12 @@ export const normalizeExports = (exports: Exports, options?: NormalizeExportsOpt
   }
   checkExportsConfiguration(exports);
 
-  const conditions = new Set([...defaultConditions, ...(options?.conditions || [])]);
-  const cwd = options?.cwd;
-  const normalizedExports = getFlattenedEntries(exports, conditions, cwd);
+  const { conditions, cwd } = options || {};
+  const normalizedExports = getFlattenedEntries(
+    exports,
+    new Set(isNonEmptyArray(conditions) ? conditions : defaultConditions),
+    cwd
+  );
 
   return normalizedExports;
 };

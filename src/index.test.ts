@@ -36,7 +36,7 @@ describe('normalizeExports', () => {
 
     expect(
       normalizeExports({
-        require: './dist/cjs/index.js',
+        browser: './dist/umd/index.js',
         default: './dist/index.js',
       })
     ).toStrictEqual({ '.': './dist/index.js' });
@@ -44,8 +44,8 @@ describe('normalizeExports', () => {
     expect(
       normalizeExports(
         {
-          require: './dist/cjs/index.js',
           import: './dist/esm/index.js',
+          require: './dist/cjs/index.js',
           default: './dist/index.js',
         },
         {
@@ -53,12 +53,6 @@ describe('normalizeExports', () => {
         }
       )
     ).toStrictEqual({ '.': './dist/cjs/index.js' });
-
-    expect(
-      normalizeExports({
-        require: './dist/cjs/index.js',
-      })
-    ).toStrictEqual({});
   });
 
   it('should apply conditions in order to array input', () => {
@@ -245,7 +239,7 @@ describe('normalizeExports', () => {
           ],
         },
         {
-          conditions: ['require', 'browser'],
+          conditions: ['import', 'require', 'browser', 'node', 'default'],
           cwd: '/Volumes/test',
         }
       )
