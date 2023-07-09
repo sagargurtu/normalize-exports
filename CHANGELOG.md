@@ -1,3 +1,10 @@
+## 0.0.5 (2023-07-09)
+
+### Bug Fixes
+
+- ESM compatibility
+  ([dd35e5f](https://github.com/sagargurtu/normalize-exports/commit/dd35e5fdf743f6ff8981dacbd2d1f0b0d4085029))
+
 ## 0.0.4 (2023-07-09)
 
 ### Features
