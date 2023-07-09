@@ -1,3 +1,10 @@
+## 0.0.4 (2023-07-09)
+
+### Features
+
+- allow default conditions to be overridden
+  ([44d7b8e](https://github.com/sagargurtu/normalize-exports/commit/44d7b8e5c9455653f835e53e5b0e34079c1ec7d6))
+
 ## 0.0.3 (2022-08-22)
 
 ### Build
