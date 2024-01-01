@@ -189,8 +189,8 @@ normalizeExports(
 
 /* =>
 {
-  './features/someFeature.js': './dist/features/someFeature.js',
-  './features/anotherFeature.js': './dist/features/anotherFeature.js'
+  './features/nested-feature/index': './dist/features/nested-feature/index.js',
+  './features/someFeature': './dist/features/someFeature.js',
 }
 */
 ```

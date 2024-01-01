@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import mockFs from 'mock-fs';
 
-import type { Exports } from './index.js';
-import { normalizeExports } from './index.js';
+import type { Exports } from './types.js';
+import { normalizeExports } from './normalize.js';
 
 describe('normalizeExports', () => {
   it('should check exports configuration', () => {
@@ -159,16 +159,48 @@ describe('normalizeExports', () => {
           cwd: '/Volumes/test',
         }
       )
-    ).toThrow(`Directory '/Volumes/test/dist/features' not found`);
+    ).toThrow(`Directory '/Volumes/test/dist/features/' not found`);
 
     mockFs.restore();
+  });
+
+  it('should throw error if subpath pattern contains multiple *', () => {
+    expect(() =>
+      normalizeExports(
+        {
+          './features/*/*': './dist/features/*.js',
+        },
+        {
+          cwd: '/Volumes/test',
+        }
+      )
+    ).toThrow(`Invalid subpath pattern './features/*/*'`);
+
+    expect(() =>
+      normalizeExports(
+        {
+          './features/*': './dist/features/*/*.js',
+        },
+        {
+          cwd: '/Volumes/test',
+        }
+      )
+    ).toThrow(`Multiple '*' in './dist/features/*/*.js' are not supported`);
   });
 
   it('should expand wildcard pattern', () => {
     mockFs({
       '/Volumes/test/dist/features': {
+        private: {
+          internal: {
+            'utils.js': '',
+          },
+          'index.js': '',
+        },
+        'nested-feature': {
+          'index.js': '',
+        },
         'someFeature.js': '',
-        'anotherFeature.js': '',
       },
     });
 
@@ -176,14 +208,20 @@ describe('normalizeExports', () => {
       normalizeExports(
         {
           './features/*': './dist/features/*.js',
+          './remap/*': './dist/features/*.js',
+          './features/private/*': null,
         },
         {
           cwd: '/Volumes/test',
         }
       )
     ).toStrictEqual({
+      './features/nested-feature/index': './dist/features/nested-feature/index.js',
       './features/someFeature': './dist/features/someFeature.js',
-      './features/anotherFeature': './dist/features/anotherFeature.js',
+      './remap/nested-feature/index': './dist/features/nested-feature/index.js',
+      './remap/someFeature': './dist/features/someFeature.js',
+      './remap/private/index': './dist/features/private/index.js',
+      './remap/private/internal/utils': './dist/features/private/internal/utils.js',
     });
 
     mockFs.restore();
