@@ -1,6 +1,6 @@
 {
   "name": "normalize-exports",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Normalizes the exports field of package.json",
   "exports": {
     ".": {
