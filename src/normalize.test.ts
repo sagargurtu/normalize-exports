@@ -159,7 +159,7 @@ describe('normalizeExports', () => {
           cwd: '/Volumes/test',
         }
       )
-    ).toThrow(`Directory '/Volumes/test/dist/features/' not found`);
+    ).toThrow(`Directory '/Volumes/test/dist/features' not found`);
 
     mockFs.restore();
   });

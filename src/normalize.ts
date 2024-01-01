@@ -72,7 +72,7 @@ const matchConditions = (exports: Exports | null, conditions: Set<string>): stri
  */
 const expandWildcardEntry = (wildcardKey: string, wildcardValue: string, cwd: string): Record<string, string> => {
   const [wildcardValueBase, wildcardValueTrail] = wildcardValue.split('*');
-  const directoryToExpand = path.join(cwd, wildcardValueBase);
+  const directoryToExpand = path.resolve(cwd, wildcardValueBase);
   if (!existsSync(directoryToExpand)) {
     throw new Error(`Directory '${directoryToExpand}' not found`);
   }
