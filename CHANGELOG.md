@@ -1,3 +1,10 @@
+## 0.0.6 (2024-01-01)
+
+### Features
+
+- expand subpath pattern recursively
+  ([cff05bb](https://github.com/sagargurtu/normalize-exports/commit/cff05bba5fcc0f4a824501c888e6b928e34daef6))
+
 ## 0.0.5 (2023-07-09)
 
 ### Bug Fixes
