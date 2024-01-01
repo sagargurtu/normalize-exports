@@ -12,7 +12,7 @@ $ npm install normalize-exports
 
 ## Usage
 
-> See [`src/index.test.ts`](src/index.test.ts) for examples.
+> See [`src/normalize.test.ts`](src/normalize.test.ts) for examples.
 
 ```ts
 import { normalizeExports } from 'normalize-exports';
